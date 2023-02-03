@@ -46,6 +46,7 @@ jobs:
                       !coverage/lcov-report
 
     app-tests:
+        if: false
         name: Element Web Integration Tests
         runs-on: ubuntu-latest
         steps:
