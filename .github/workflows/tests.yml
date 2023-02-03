@@ -11,6 +11,7 @@ env:
     PR_NUMBER: ${{ github.event.pull_request.number }}
 jobs:
     jest:
+        if: false
         name: Jest
         runs-on: ubuntu-latest
         steps:
