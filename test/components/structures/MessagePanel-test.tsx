@@ -683,6 +683,27 @@ describe("MessagePanel", function () {
         expect(els.length).toEqual(1);
         expect(els[0].getAttribute("data-scroll-tokens").split(",").length).toEqual(3);
     });
+
+    it("should handle large numbers of hidden events quickly", () => {
+        // Increase the length of the loop here to test performance issues with
+        // rendering
+
+        const events = [];
+        for (let i = 0; i < 100; i++) {
+            events.push(
+                TestUtilsMatrix.mkEvent({
+                    event: true,
+                    type: "unknown.event.type",
+                    content: { key: "value" },
+                    room: "!room:id",
+                    user: "@user:id",
+                    ts: 1000000 + i,
+                }),
+            );
+        }
+        const { asFragment } = render(getComponent({ events }, { showHiddenEvents: false }));
+        expect(asFragment()).toMatchSnapshot();
+    });
 });
 
 describe("shouldFormContinuation", () => {
